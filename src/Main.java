@@ -4,9 +4,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private static final int WIDTH = 80;  // В клетках
-    private static final int HEIGHT = 60; // В клетках
-    private static final int MOLES_COUNT = 5;
+    private static final int WIDTH = 80;
+    private static final int HEIGHT = 60;
+    private static final int MOLES_COUNT = 12;
 
     private World world;
 
@@ -24,7 +24,7 @@ public class Main extends Application {
                     return;
                 }
 
-                double deltaTime = (now - lastTime) / 1_000_000_000.0; // В секундах
+                double deltaTime = (now - lastTime) / 1_000_000_000.0;
                 lastTime = now;
 
                 world.update(deltaTime);
@@ -34,7 +34,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(world, WIDTH * World.CELL_SIZE,
                 HEIGHT * World.CELL_SIZE);
-        primaryStage.setTitle("Подземная жизнь: Сетка 10x10");
+        primaryStage.setTitle("Подземная жизнь");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
