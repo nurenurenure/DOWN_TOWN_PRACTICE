@@ -58,13 +58,25 @@ public class Mole {
         if (progress < 1.0) {
             progress = Math.min(1.0, progress + deltaTime / MOVE_DELAY);
 
-            // Помечаем все промежуточные клетки в общей карте
-            int steps = 5;
-            for (int i = 0; i <= steps; i++) {
-                double p = progress * i / steps;
-                int currentCellX = (int)(gridX + (targetX - gridX) * p);
-                int currentCellY = (int)(gridY + (targetY - gridY) * p);
-                world.markTunnelCell(currentCellX, currentCellY);
+            // Проверяем, не движемся ли мы в воду
+            int nextX = (int)(gridX + (targetX - gridX) * progress);
+            int nextY = (int)(gridY + (targetY - gridY) * progress);
+
+            if (world.isWater(nextX, nextY)) {
+                // Избегаем воды - меняем направление
+                targetX = gridX;
+                targetY = gridY;
+                progress = 1.0;
+                timeSinceLastMove = MOVE_DELAY * 2; // Дольше думаем у воды
+            } else {
+                // Помечаем туннели как обычно
+                int steps = 3;
+                for (int i = 0; i <= steps; i++) {
+                    double p = progress * i / steps;
+                    int currentX = (int)(gridX + (targetX - gridX) * p);
+                    int currentY = (int)(gridY + (targetY - gridY) * p);
+                    world.markTunnelCell(currentX, currentY);
+                }
             }
 
             updateVisualPosition();
