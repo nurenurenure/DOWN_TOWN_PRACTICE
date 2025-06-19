@@ -109,9 +109,9 @@ public class World extends Pane {
                 mole.move(deltaTime);
             }
         }
-        // Обновляем кротов
+        // Обновляем кротов (с проверкой на null)
         for (Mole mole : moles) {
-            if (mole.isAlive()) {
+            if (mole != null && mole.isAlive()) {  // Сначала проверяем на null
                 mole.move(deltaTime);
             }
         }
@@ -130,18 +130,20 @@ public class World extends Pane {
         // Рисуем туннели
         drawAllTunnels();
     }
+    public void updateWorms() {
+        // Создаем копию списка для безопасной итерации
+        List<Worm> wormsToUpdate = new ArrayList<>(worms);
 
-    private void updateWorms() {
-        Iterator<Worm> iterator = worms.iterator();
-        while (iterator.hasNext()) {
-            Worm worm = iterator.next();
+        for (Worm worm : wormsToUpdate) {
             worm.update(this);
             if (!worm.isAlive()) {
+                // Удаляем из основного списка и со сцены
+                worms.remove(worm);
                 getChildren().remove(worm.getVisual());
-                iterator.remove();
             }
         }
     }
+
 
     private void updateTunnels() {
         for (int i = 0; i < width; i++) {
