@@ -2,9 +2,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Mole {
+    private boolean alive = true;
     public static final int TUNNEL_DURATION = 100;
     private static final double MOVE_DELAY = 0.05;
 
+    // ... существующие поля ...
+    private int hunger = 0;
+    private static final int MAX_HUNGER = 300;
+    private static final int HUNGER_PER_FRAME = 1;
+    private static final int FOOD_VALUE = 100;
     private int gridX, gridY;
     private double targetX, targetY;
     private double progress = 0;
@@ -28,7 +34,10 @@ public class Mole {
         world.markTunnelCell(gridX, gridY);
     }
 
+
+
     public void move(double deltaTime) {
+        if (!alive) return;
         timeSinceLastMove += deltaTime;
 
         if (progress >= 1.0) {
@@ -78,9 +87,35 @@ public class Mole {
                     world.markTunnelCell(currentX, currentY);
                 }
             }
+            hunger += HUNGER_PER_FRAME;
+            if (hunger >= MAX_HUNGER) {
+                die();
+                return;
+            }
+
+            // Проверка на червей в текущей клетке
+            Worm worm = world.getWormAt((int)targetX, (int)targetY);
+            if (worm != null) {
+                eat(worm);
+            }
 
             updateVisualPosition();
         }
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+    public void eat(Worm worm) {
+        worm.die();
+        hunger = Math.max(0, hunger - FOOD_VALUE);
+        world.removeWorm(worm);
+    }
+
+    public void die() {
+        alive = false;
+        visual.setFill(Color.GRAY);
+        world.removeMole(this);  // Уведомляем мир о смерти
     }
 
     private void updateVisualPosition() {
