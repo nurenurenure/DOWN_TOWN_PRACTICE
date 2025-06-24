@@ -170,6 +170,11 @@ public class Mole {
         if (worm != null && worm.isAlive()) {
             eat(worm);
         }
+        // Проверка и поедание корня
+        Root root = world.getRootAt(gridX, gridY);
+        if (root != null) {
+            eat(root);
+        }
     }
 
     private void updateVisuals() {
@@ -180,10 +185,15 @@ public class Mole {
     public boolean isAlive() {
         return alive;
     }
+
     public void eat(Worm worm) {
         worm.die();
         hunger = Math.max(0, hunger - FOOD_VALUE);
         world.removeWorm(worm);
+    }
+    public void eat(Root root) {
+        hunger = Math.max(0, hunger - 50); // Корни восстанавливают меньше, чем черви
+        world.removeRoot(root);
     }
 
     public void die() {

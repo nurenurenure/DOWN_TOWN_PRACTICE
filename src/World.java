@@ -25,6 +25,9 @@ public class World extends Pane {
 
     private final Random random = new Random();
 
+    private final List<Root> roots = new ArrayList<>();
+
+
     public World(int width, int height, int moleCount,
                  int waterCount, int minWaterSize, int maxWaterSize) {
         this.width = width;
@@ -57,6 +60,8 @@ public class World extends Pane {
 
         // Генерируем червей около воды
         generateInitialWorms(waterCount * 2);
+
+        generateRootsNearWater();
 
         // Инициализируем графику
         drawBackground();
@@ -100,6 +105,43 @@ public class World extends Pane {
             this.getChildren().add(worm.getVisual());
         }
     }
+
+    private void generateRootsNearWater() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < Math.min(10, height); y++) {  // Верхние 10 слоёв
+                if (!isWater(x, y) && isNearWater(x, y) && !hasRootAt(x, y)) {
+                    if (random.nextDouble() < 0.05) {  // 5% шанс на клетку
+                        Root root = new Root(x, y);
+                        roots.add(root);
+                        getChildren().add(root.getVisual());
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean hasRootAt(int x, int y) {
+        for (Root root : roots) {
+            if (root.getX() == x && root.getY() == y && root.isAlive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Root getRootAt(int x, int y) {
+        for (Root root : roots) {
+            if (root.getX() == x && root.getY() == y && root.isAlive()) {
+                return root;
+            }
+        }
+        return null;
+    }
+
+    public void removeRoot(Root root) {
+        root.consume();  // Делаем корень "мертвым" и невидимым
+    }
+
 
     public void update(double deltaTime) {
         // Обновляем кротов (учитываем живых)

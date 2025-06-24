@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="улучшена логика передвижения кротов">
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Кроты не копают сквозь водоемы">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750749093616</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Кроты не копают сквозь водоемы">
+      <option name="closed" value="true" />
+      <created>1750750213213</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750750213213</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -135,6 +143,7 @@
     <MESSAGE value="Добавлены черви(рядом с водоемами)" />
     <MESSAGE value="исправлен баг с обновлением червей" />
     <MESSAGE value="улучшена логика передвижения кротов" />
-    <option name="LAST_COMMIT_MESSAGE" value="улучшена логика передвижения кротов" />
+    <MESSAGE value="Кроты не копают сквозь водоемы" />
+    <option name="LAST_COMMIT_MESSAGE" value="Кроты не копают сквозь водоемы" />
   </component>
 </project>
