@@ -68,36 +68,59 @@ public class Mole {
     }
 
     private void determineDirection() {
-        // Базовое направление (70% горизонтальное)
         if (progress >= 1.0) {
+            int newTargetX, newTargetY;
+
             if (Math.random() < 0.7) {
-                targetX = gridX + (int)Math.signum(preferredDirectionX);
-                targetY = gridY;
+                newTargetX = gridX + (int)Math.signum(preferredDirectionX);
+                newTargetY = gridY;
             } else {
-                // Вертикальное отклонение
-                targetX = gridX;
-                targetY = gridY + (int)Math.signum(preferredDirectionY);
+                newTargetX = gridX;
+                newTargetY = gridY + (int)Math.signum(preferredDirectionY);
             }
 
-            // Случайные изгибы (10% chance)
+            // Случайные изгибы
             if (Math.random() < 0.1) {
                 preferredDirectionX *= (Math.random() < 0.8) ? 1 : -1;
                 preferredDirectionY = Math.max(-0.5, Math.min(0.5,
                         preferredDirectionY + (Math.random() - 0.5) * 0.3));
             }
 
-            // Избегание туннелей (80% chance повернуть)
-            if (world.hasTunnelAt(targetX, targetY) && Math.random() < 0.8) {
+            // Избегание других туннелей
+            if (world.hasTunnelAt(newTargetX, newTargetY) && Math.random() < 0.8) {
                 preferredDirectionX *= -1;
-                targetX = gridX + (int)Math.signum(preferredDirectionX);
+                newTargetX = gridX + (int)Math.signum(preferredDirectionX);
             }
 
-            // Притяжение к воде (60% chance если вода рядом)
+            // Притяжение к воде
             if (world.getWaterInfluence(gridX, gridY) > 0.5 && Math.random() < 0.6) {
                 adjustDirectionToWater(world);
+                newTargetX = gridX + (int)Math.signum(preferredDirectionX);
+                newTargetY = gridY + (int)Math.signum(preferredDirectionY);
+            }
+
+            // ❗ Проверка на воду
+            if (!world.isWater(newTargetX, newTargetY)) {
+                targetX = newTargetX;
+                targetY = newTargetY;
+            } else {
+                // Поворачиваем в случайном другом направлении
+                int[][] dirs = {
+                        {1, 0}, {-1, 0}, {0, 1}, {0, -1}
+                };
+                for (int[] dir : dirs) {
+                    int tx = gridX + dir[0];
+                    int ty = gridY + dir[1];
+                    if (!world.isWater(tx, ty)) {
+                        targetX = tx;
+                        targetY = ty;
+                        break;
+                    }
+                }
             }
         }
     }
+
 
     private void updatePosition(double deltaTime) {
         if (progress < 1.0) {
