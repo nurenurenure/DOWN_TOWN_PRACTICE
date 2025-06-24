@@ -305,4 +305,23 @@ public class World extends Pane {
     public boolean isValidPosition(int x, int y) {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
+    public double getWaterInfluence(int x, int y) {
+        int waterCells = 0;
+        int totalCells = 0;
+
+        for (int dx = -5; dx <= 5; dx++) {
+            for (int dy = -5; dy <= 5; dy++) {
+                if (isValidPosition(x+dx, y+dy)) {
+                    totalCells++;
+                    if (isWater(x+dx, y+dy)) waterCells++;
+                }
+            }
+        }
+
+        return (double)waterCells / totalCells;
+    }
+    public boolean hasTunnelAt(int x, int y) {
+        if (!isValidPosition(x, y)) return false;
+        return tunnelMap[x][y] > 0;
+    }
 }
