@@ -60,6 +60,12 @@ public class Mole {
         // 3. Обновляем позицию
         updatePosition(deltaTime);
 
+        if (world.isGasChamber(gridX, gridY)) {
+            die();
+            return;
+        }
+
+
         // 4. Проверяем червей в текущей клетке
         checkForFood();
 

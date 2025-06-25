@@ -23,6 +23,9 @@ public class World extends Pane {
     public final boolean[][] waterMap;
     public final boolean[][] emptyMap;
 
+    private boolean[][] gasChambers;
+
+
     private final Random random = new Random();
 
     private final List<Root> roots = new ArrayList<>();
@@ -62,6 +65,9 @@ public class World extends Pane {
         generateInitialWorms(waterCount * 2);
 
         generateRootsNearWater();
+
+        gasChambers = new boolean[width][height];
+        generateGasChambers();
 
         // Инициализируем графику
         drawBackground();
@@ -366,4 +372,34 @@ public class World extends Pane {
         if (!isValidPosition(x, y)) return false;
         return tunnelMap[x][y] > 0;
     }
+
+    private void generateGasChambers() {
+        Random random = new Random();
+        int clusterCount = (width * height) / 500; // Примерно 1 газовая камера на 500 клеток
+
+        for (int i = 0; i < clusterCount; i++) {
+            int clusterSize = 4 + random.nextInt(5); // 4–8 клеток
+            int startX = random.nextInt(width);
+            int startY = random.nextInt(height);
+
+            for (int j = 0; j < clusterSize; j++) {
+                int dx = startX + random.nextInt(3) - 1;
+                int dy = startY + random.nextInt(3) - 1;
+
+                if (isInBounds(dx, dy) && !isWater(dx, dy)) {
+                    gasChambers[dx][dy] = true;
+                }
+            }
+        }
+    }
+
+    private boolean isInBounds(int x, int y) {
+        return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
+    public boolean isGasChamber(int x, int y) {
+        return isInBounds(x, y) && gasChambers[x][y];
+    }
+
+
 }
