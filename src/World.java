@@ -240,6 +240,22 @@ public class World extends Pane {
                 }
             }
         }
+
+        // Рисуем газовые камеры
+        gc.setFill(Color.rgb(0, 255, 0, 0.25)); // Ядовито-зелёный полупрозрачный
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (gasChambers[x][y]) {
+                    gc.fillRect(
+                            x * CELL_SIZE + 1,
+                            y * CELL_SIZE + 1,
+                            CELL_SIZE - 2,
+                            CELL_SIZE - 2
+                    );
+                }
+            }
+        }
     }
 
     private void drawAllTunnels() {

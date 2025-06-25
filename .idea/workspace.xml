@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлен новый объект - Корни">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлен новый объект - Газовая камера" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750751537474</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Добавлен новый объект - Газовая камера">
+      <option name="closed" value="true" />
+      <created>1750846662390</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1750846662390</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -153,6 +159,7 @@
     <MESSAGE value="улучшена логика передвижения кротов" />
     <MESSAGE value="Кроты не копают сквозь водоемы" />
     <MESSAGE value="Добавлен новый объект - Корни" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлен новый объект - Корни" />
+    <MESSAGE value="Добавлен новый объект - Газовая камера" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен новый объект - Газовая камера" />
   </component>
 </project>
