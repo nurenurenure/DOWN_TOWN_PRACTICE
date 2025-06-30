@@ -18,7 +18,7 @@ public class World extends Pane {
     private final Canvas tunnelsCanvas;
     private final Canvas gridCanvas;
 
-    private final Mole[] moles;
+    private final List<Mole> moles = new ArrayList<>();
     private final List<Worm> worms = new ArrayList<>();
 
     public final int[][] tunnelMap;
@@ -31,6 +31,7 @@ public class World extends Pane {
     private final Random random = new Random();
 
     private final List<Root> roots = new ArrayList<>();
+
 
     private Season season;
 
@@ -52,21 +53,21 @@ public class World extends Pane {
         this.getChildren().addAll(backgroundCanvas, tunnelsCanvas, gridCanvas);
 
         // Создаем кротов
-        this.moles = new Mole[moleCount];  // Массив изначально заполнен null
-        for (int i = 0; i < moles.length; i++) {
+        for (int i = 0; i < moleCount; i++) {
             int x = random.nextInt(width);
             int y;
 
             if (season == Season.WINTER) {
-                // Не спавнить кротов в верхних замороженных слоях зимой
                 y = random.nextInt(height - Main.FROZEN_TOP_LAYERS) + Main.FROZEN_TOP_LAYERS;
             } else {
                 y = random.nextInt(height);
             }
 
-            moles[i] = new Mole(x, y, this);
-            this.getChildren().add(moles[i].getVisual());
+            Mole mole = new Mole(x, y, this);
+            moles.add(mole);  // теперь список, не массив
+            getChildren().add(mole.getVisual());
         }
+
 
         // Генерируем воду
         generateWater(waterCount, minWaterSize, maxWaterSize);
@@ -166,16 +167,9 @@ public class World extends Pane {
 
 
     public void update(double deltaTime) {
-        // Обновляем кротов (учитываем живых)
-        for (int i = 0; i < moles.length; i++) {
-            Mole mole = moles[i];
-            if (mole != null && mole.isAlive()) {  // Добавляем проверку на null
-                mole.move(deltaTime);
-            }
-        }
-        // Обновляем кротов (с проверкой на null)
-        for (Mole mole : moles) {
-            if (mole != null && mole.isAlive()) {  // Сначала проверяем на null
+        List<Mole> molesToUpdate = new ArrayList<>(moles);
+        for (Mole mole : molesToUpdate) {
+            if (mole != null && mole.isAlive()) {
                 mole.move(deltaTime);
             }
         }
@@ -364,13 +358,7 @@ public class World extends Pane {
     public void removeMole(Mole mole) {
         if (mole != null) {
             getChildren().remove(mole.getVisual());
-            // Удаляем крота из массива, устанавливая null
-            for (int i = 0; i < moles.length; i++) {
-                if (moles[i] == mole) {
-                    moles[i] = null;
-                    break;
-                }
-            }
+            moles.remove(mole);
         }
     }
 
@@ -442,6 +430,20 @@ public class World extends Pane {
     public boolean isGasChamber(int x, int y) {
         return isInBounds(x, y) && gasChambers[x][y];
     }
+
+    public void addMole(Mole mole) {
+        moles.add(mole);
+        getChildren().add(mole.getVisual());
+    }
+    public boolean hasMoleAt(int x, int y) {
+        for (Mole mole : moles) {
+            if (mole.isAlive() && mole.getGridX() == x && mole.getGridY() == y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }

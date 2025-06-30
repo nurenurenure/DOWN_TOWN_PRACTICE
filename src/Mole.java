@@ -3,6 +3,11 @@ import javafx.scene.shape.Rectangle;
 import java.util.Random;
 
 public class Mole {
+
+    private static final int REPRODUCTION_TIME = 600; // сколько тиков до попытки размножения
+    private static final double REPRODUCTION_PROBABILITY = 0.04;
+    private int reproductionCounter = 0;
+
     private boolean alive = true;
     public static final int TUNNEL_DURATION = 100;
     private static final double MOVE_DELAY = 0.05;
@@ -65,6 +70,14 @@ public class Mole {
             return;
         }
 
+        reproductionCounter++;
+        if (reproductionCounter >= REPRODUCTION_TIME && Math.random() < REPRODUCTION_PROBABILITY) {
+            reproduce();
+            reproductionCounter = 0;
+        }
+
+
+
 
         // 4. Проверяем червей в текущей клетке
         checkForFood();
@@ -72,6 +85,25 @@ public class Mole {
         // 5. Обновляем визуализацию
         updateVisuals();
     }
+
+    private void reproduce() {
+        // Пытаемся найти свободную клетку рядом
+        int[][] directions = {{0,1},{1,0},{0,-1},{-1,0}};
+        for (int[] dir : directions) {
+            int newX = gridX + dir[0];
+            int newY = gridY + dir[1];
+
+            if (world.isValidPosition(newX, newY)
+                    && !world.isWater(newX, newY)
+                    && !world.hasMoleAt(newX, newY)) {
+
+                Mole child = new Mole(newX, newY, world);
+                world.addMole(child);
+                break;
+            }
+        }
+    }
+
 
     private void determineDirection() {
         if (progress >= 1.0) {
@@ -259,5 +291,13 @@ public class Mole {
             preferredDirectionX = Integer.signum(closestWaterX);
             preferredDirectionY = Integer.signum(closestWaterY) * 0.3;
         }
+    }
+
+    public int getGridX() {
+        return gridX;
+    }
+
+    public int getGridY() {
+        return gridY;
     }
 }
