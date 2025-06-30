@@ -28,6 +28,12 @@ public class World extends Pane {
     private boolean[][] gasChambers;
 
 
+    private double rootGrowthTimer = 0;
+    private final double ROOT_GROWTH_INTERVAL = 0.5; // корни растут раз в 0.5 секунды
+    private final int MAX_ROOT_DEPTH = 12;
+
+
+
     private final Random random = new Random();
 
     private final List<Root> roots = new ArrayList<>();
@@ -148,8 +154,11 @@ public class World extends Pane {
             int belowY = root.getY() + 1;
             int x = root.getX();
 
-            if (belowY < height && !hasRootAt(x, belowY) && !isWater(x, belowY)) {
-                if (random.nextDouble() < 0.2) { // шанс роста вниз — 20%
+            // Ограничим максимальную глубину
+            if (belowY >= height || belowY > MAX_ROOT_DEPTH) continue;
+
+            if (!hasRootAt(x, belowY) && !isWater(x, belowY)) {
+                if (random.nextDouble() < 0.1) { // шанс роста вниз 10%
                     Root newRoot = new Root(x, belowY);
                     newRoots.add(newRoot);
                     getChildren().add(newRoot.getVisual());
@@ -158,6 +167,7 @@ public class World extends Pane {
         }
         roots.addAll(newRoots);
     }
+
 
 
 
@@ -189,7 +199,7 @@ public class World extends Pane {
         List<Mole> molesToUpdate = new ArrayList<>(moles);
         for (Mole mole : molesToUpdate) {
             if (mole != null && mole.isAlive()) {
-                mole.move(deltaTime);
+                mole.update(deltaTime);
             }
         }
 
@@ -199,7 +209,13 @@ public class World extends Pane {
         // Обновляем туннели
         updateTunnels();
 
-        growRootsDownward();
+        // Таймер роста корней
+        rootGrowthTimer += deltaTime;
+        if (rootGrowthTimer >= ROOT_GROWTH_INTERVAL) {
+            growRootsDownward();
+            rootGrowthTimer = 0;
+        }
+
 
         // Очищаем и перерисовываем
         GraphicsContext gc = tunnelsCanvas.getGraphicsContext2D();
@@ -459,12 +475,14 @@ public class World extends Pane {
     }
     public boolean hasMoleAt(int x, int y) {
         for (Mole mole : moles) {
-            if (mole.isAlive() && mole.getGridX() == x && mole.getGridY() == y) {
+            if (mole.isAlive() && mole.getX() == x && mole.getY() == y) {
                 return true;
             }
         }
         return false;
     }
+
+
 
 
 

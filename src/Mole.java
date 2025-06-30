@@ -2,35 +2,27 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.Random;
 
-public class Mole {
+public class Mole extends Animal {
 
-    private static final int REPRODUCTION_TIME = 600; // сколько тиков до попытки размножения
+    private static final int REPRODUCTION_TIME = 600;
     private static final double REPRODUCTION_PROBABILITY = 0.04;
-    private int reproductionCounter = 0;
-
-    private boolean alive = true;
+    private static final int MAX_HUNGER = 1500;
+    private static final int HUNGER_PER_FRAME = 1;
+    private static final int FOOD_VALUE = 100;
     public static final int TUNNEL_DURATION = 100;
     private static final double MOVE_DELAY = 0.05;
 
     private final Random random = new Random();
-    private double preferredDirectionX; // Предпочитаемое горизонтальное направление (-1 или 1)
-    private double preferredDirectionY; // Небольшие вертикальные отклонения
+    private double preferredDirectionX;
+    private double preferredDirectionY;
 
-    private int hunger = 0;
-    private static final int MAX_HUNGER = 1500;
-    private static final int HUNGER_PER_FRAME = 1;
-    private static final int FOOD_VALUE = 100;
-    private int gridX, gridY;
     private int targetX, targetY;
     private double progress = 0;
     private Rectangle visual;
-    private double timeSinceLastMove = 0;
-    private World world; // Ссылка на мир
-
+    private World world;
 
     public Mole(int startX, int startY, World world) {
-        this.gridX = startX;
-        this.gridY = startY;
+        super(startX, startY);
         this.targetX = startX;
         this.targetY = startY;
         this.world = world;
@@ -43,29 +35,22 @@ public class Mole {
         this.visual.setStroke(Color.BLACK);
         updateVisualPosition();
 
-        // Помечаем начальную позицию
-        world.markTunnelCell(gridX, gridY);
+        world.markTunnelCell(x, y);
     }
 
-
-
-    public void move(double deltaTime) {
+    public void update(double deltaTime) {
         if (!alive) return;
 
-        // 1. Обновляем голод
         hunger += HUNGER_PER_FRAME;
         if (hunger >= MAX_HUNGER) {
             die();
             return;
         }
 
-        // 2. Определяем направление с учетом всех факторов
         determineDirection();
-
-        // 3. Обновляем позицию
         updatePosition(deltaTime);
 
-        if (world.isGasChamber(gridX, gridY)) {
+        if (world.isGasChamber(x, y)) {
             die();
             return;
         }
@@ -76,93 +61,72 @@ public class Mole {
             reproductionCounter = 0;
         }
 
-
-
-
-        // 4. Проверяем червей в текущей клетке
         checkForFood();
-
-        // 5. Обновляем визуализацию
         updateVisuals();
     }
 
+    @Override
+    public void update(World world) {
+        // Не используется, т.к. крот обновляется через update(deltaTime)
+    }
+
     private void reproduce() {
-        // Пытаемся найти свободную клетку рядом
         int[][] directions = {{0,1},{1,0},{0,-1},{-1,0}};
         for (int[] dir : directions) {
-            int newX = gridX + dir[0];
-            int newY = gridY + dir[1];
-
+            int newX = x + dir[0];
+            int newY = y + dir[1];
             if (world.isValidPosition(newX, newY)
                     && !world.isWater(newX, newY)
                     && !world.hasMoleAt(newX, newY)) {
-
-                Mole child = new Mole(newX, newY, world);
-                world.addMole(child);
+                world.addMole(new Mole(newX, newY, world));
                 break;
             }
         }
     }
 
-
     private void determineDirection() {
         if (progress >= 1.0) {
-            int newTargetX, newTargetY;
+            int newTargetX = x, newTargetY = y;
 
             if (Math.random() < 0.7) {
-                newTargetX = gridX + (int)Math.signum(preferredDirectionX);
-                newTargetY = gridY;
+                newTargetX += (int)Math.signum(preferredDirectionX);
             } else {
-                newTargetX = gridX;
-                newTargetY = gridY + (int)Math.signum(preferredDirectionY);
+                newTargetY += (int)Math.signum(preferredDirectionY);
             }
 
-            // Проверяем границы мира и корректируем, если вышли за пределы
             newTargetX = Math.max(0, Math.min(world.width - 1, newTargetX));
             newTargetY = Math.max(0, Math.min(world.height - 1, newTargetY));
 
-            // Случайные изгибы
             if (Math.random() < 0.1) {
                 preferredDirectionX *= (Math.random() < 0.8) ? 1 : -1;
                 preferredDirectionY = Math.max(-0.5, Math.min(0.5,
                         preferredDirectionY + (Math.random() - 0.5) * 0.3));
             }
 
-            // Избегание других туннелей
             if (world.hasTunnelAt(newTargetX, newTargetY) && Math.random() < 0.8) {
                 preferredDirectionX *= -1;
-                newTargetX = gridX + (int)Math.signum(preferredDirectionX);
+                newTargetX = x + (int)Math.signum(preferredDirectionX);
                 newTargetX = Math.max(0, Math.min(world.width - 1, newTargetX));
             }
 
-            // Притяжение к воде
-            if (world.getWaterInfluence(gridX, gridY) > 0.5 && Math.random() < 0.6) {
-                adjustDirectionToWater(world);
-                newTargetX = gridX + (int)Math.signum(preferredDirectionX);
-                newTargetY = gridY + (int)Math.signum(preferredDirectionY);
+            if (world.getWaterInfluence(x, y) > 0.5 && Math.random() < 0.6) {
+                adjustDirectionToWater();
+                newTargetX = x + (int)Math.signum(preferredDirectionX);
+                newTargetY = y + (int)Math.signum(preferredDirectionY);
 
                 newTargetX = Math.max(0, Math.min(world.width - 1, newTargetX));
                 newTargetY = Math.max(0, Math.min(world.height - 1, newTargetY));
             }
 
             if (!world.isWater(newTargetX, newTargetY)) {
-                // ❄️ Ограничение для зимы: не копать в верхние слои
-                if (world.getSeason() == Season.WINTER && newTargetY < Main.FROZEN_TOP_LAYERS) {
-                    // Пропускаем эту цель — остаёмся на месте или попробуем позже
-                    return;
-                }
-
+                if (world.getSeason() == Season.WINTER && newTargetY < Main.FROZEN_TOP_LAYERS) return;
                 targetX = newTargetX;
                 targetY = newTargetY;
             } else {
-                // Поворачиваем в случайном другом направлении
-                int[][] dirs = {
-                        {1, 0}, {-1, 0}, {0, 1}, {0, -1}
-                };
-                for (int[] dir : dirs) {
-                    int tx = gridX + dir[0];
-                    int ty = gridY + dir[1];
-                    if (tx >= 0 && tx < world.width && ty >= 0 && ty < world.height && !world.isWater(tx, ty)) {
+                for (int[] dir : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+                    int tx = x + dir[0];
+                    int ty = y + dir[1];
+                    if (world.isValidPosition(tx, ty) && !world.isWater(tx, ty)) {
                         targetX = tx;
                         targetY = ty;
                         break;
@@ -172,30 +136,22 @@ public class Mole {
         }
     }
 
-
-
     private void updatePosition(double deltaTime) {
         if (progress < 1.0) {
             progress = Math.min(1.0, progress + deltaTime / MOVE_DELAY);
-
-            // Плавное перемещение между клетками
-            double newX = gridX + (targetX - gridX) * progress;
-            double newY = gridY + (targetY - gridY) * progress;
-
-            // Помечаем все промежуточные клетки как туннели
-            markTunnelPath(gridX, gridY, (int)newX, (int)newY);
-
-            gridX = (int)newX;
-            gridY = (int)newY;
+            double newX = x + (targetX - x) * progress;
+            double newY = y + (targetY - y) * progress;
+            markTunnelPath(x, y, (int)newX, (int)newY);
+            x = (int)newX;
+            y = (int)newY;
         } else {
             progress = 0;
-            gridX = targetX;
-            gridY = targetY;
+            x = targetX;
+            y = targetY;
         }
     }
 
     private void markTunnelPath(int fromX, int fromY, int toX, int toY) {
-        // Алгоритм Брезенхема для отметки всех клеток по пути
         int dx = Math.abs(toX - fromX);
         int dy = -Math.abs(toY - fromY);
         int sx = fromX < toX ? 1 : -1;
@@ -218,46 +174,38 @@ public class Mole {
     }
 
     private void checkForFood() {
-        Worm worm = world.getWormAt(gridX, gridY);
-        if (worm != null && worm.isAlive()) {
-            eat(worm);
-        }
-        // Проверка и поедание корня
-        Root root = world.getRootAt(gridX, gridY);
-        if (root != null) {
-            eat(root);
-        }
+        Worm worm = world.getWormAt(x, y);
+        if (worm != null && worm.isAlive()) eat(worm);
+
+        Root root = world.getRootAt(x, y);
+        if (root != null) eat(root);
+    }
+
+    private void eat(Worm worm) {
+        worm.die();
+        hunger = Math.max(0, hunger - FOOD_VALUE);
+        world.removeWorm(worm);
+    }
+
+    private void eat(Root root) {
+        hunger = Math.max(0, hunger - 50);
+        world.removeRoot(root);
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        visual.setFill(Color.GRAY);
+        world.removeMole(this);
     }
 
     private void updateVisuals() {
         updateVisualPosition();
     }
 
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void eat(Worm worm) {
-        worm.die();
-        hunger = Math.max(0, hunger - FOOD_VALUE);
-        world.removeWorm(worm);
-    }
-    public void eat(Root root) {
-        hunger = Math.max(0, hunger - 50); // Корни восстанавливают меньше, чем черви
-        world.removeRoot(root);
-    }
-
-    public void die() {
-        alive = false;
-        visual.setFill(Color.GRAY);
-        world.removeMole(this);  // Уведомляем мир о смерти
-    }
-
     private void updateVisualPosition() {
-        double currentX = gridX + (targetX - gridX) * progress;
-        double currentY = gridY + (targetY - gridY) * progress;
-
+        double currentX = x + (targetX - x) * progress;
+        double currentY = y + (targetY - y) * progress;
         visual.setX(currentX * World.CELL_SIZE);
         visual.setY(currentY * World.CELL_SIZE);
     }
@@ -266,38 +214,26 @@ public class Mole {
         return visual;
     }
 
-    private void adjustDirectionToWater(World world) {
-        // Простой алгоритм движения к ближайшей воде
-        int closestWaterX = 0;
-        int closestWaterY = 0;
-        double minDistance = Double.MAX_VALUE;
+    private void adjustDirectionToWater() {
+        int bestDx = 0, bestDy = 0;
+        double minDist = Double.MAX_VALUE;
 
-        // Поиск ближайшей воды в радиусе 10 клеток
         for (int dx = -10; dx <= 10; dx++) {
             for (int dy = -10; dy <= 10; dy++) {
-                if (world.isWater(gridX + dx, gridY + dy)) {
-                    double dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < minDistance) {
-                        minDistance = dist;
-                        closestWaterX = dx;
-                        closestWaterY = dy;
+                if (world.isWater(x + dx, y + dy)) {
+                    double dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        bestDx = dx;
+                        bestDy = dy;
                     }
                 }
             }
         }
 
-        // Корректировка направления
-        if (minDistance < Double.MAX_VALUE) {
-            preferredDirectionX = Integer.signum(closestWaterX);
-            preferredDirectionY = Integer.signum(closestWaterY) * 0.3;
+        if (minDist < Double.MAX_VALUE) {
+            preferredDirectionX = Integer.signum(bestDx);
+            preferredDirectionY = Integer.signum(bestDy) * 0.3;
         }
-    }
-
-    public int getGridX() {
-        return gridX;
-    }
-
-    public int getGridY() {
-        return gridY;
     }
 }
