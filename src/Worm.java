@@ -3,7 +3,7 @@ import javafx.scene.shape.Circle;
 
 public class Worm extends Animal {
     public static final int REPRODUCTION_TIME = 200;
-    public static final int MAX_AGE = 500;
+    public static final int MAX_AGE = 2000;
     public static final double REPRODUCTION_PROBABILITY = 0.3;
     private static final int MAX_HUNGER = 300;
     private static final int HUNGER_PER_TICK = 1;
@@ -27,6 +27,10 @@ public class Worm extends Animal {
         reproductionCounter++;
 
         if (age >= MAX_AGE || hunger >= MAX_HUNGER) {
+            die();
+            return;
+        }
+        if (world.isGasChamber(x, y)) {
             die();
             return;
         }

@@ -12,6 +12,7 @@ public class Main extends Application {
     private static final int WIDTH = 80;
     private static final int HEIGHT = 60;
     private static final int MOLES_COUNT = 12;
+    private static final int DUNG_COUNT = 5;
 
     private static final int SPRING_WATER_COUNT = 20;
     private static final int WINTER_WATER_COUNT = 10;
@@ -20,6 +21,7 @@ public class Main extends Application {
     private static final int MAX_WATER_SIZE = 8;
 
     public static final int FROZEN_TOP_LAYERS = 20;
+
 
     private World world;
     private AnimationTimer timer;
@@ -63,7 +65,7 @@ public class Main extends Application {
         };
 
         world = new World(WIDTH, HEIGHT, MOLES_COUNT,
-                waterCount, MIN_WATER_SIZE, MAX_WATER_SIZE, season);
+                waterCount, MIN_WATER_SIZE, MAX_WATER_SIZE, DUNG_COUNT, season);
 
         BorderPane root = new BorderPane();
         root.setCenter(world);
