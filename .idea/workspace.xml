@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлен новый объект - Газовая камера" />
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлена визуализация газовых камер">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mole.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750846662390</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Добавлена визуализация газовых камер">
+      <option name="closed" value="true" />
+      <created>1750847082691</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750847082691</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -160,6 +171,7 @@
     <MESSAGE value="Кроты не копают сквозь водоемы" />
     <MESSAGE value="Добавлен новый объект - Корни" />
     <MESSAGE value="Добавлен новый объект - Газовая камера" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлен новый объект - Газовая камера" />
+    <MESSAGE value="Добавлена визуализация газовых камер" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена визуализация газовых камер" />
   </component>
 </project>

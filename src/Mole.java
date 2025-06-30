@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Mole {
     private boolean alive = true;
-    public static final int TUNNEL_DURATION = 10000;
+    public static final int TUNNEL_DURATION = 100;
     private static final double MOVE_DELAY = 0.05;
 
     private final Random random = new Random();
