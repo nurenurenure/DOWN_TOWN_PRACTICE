@@ -12,7 +12,7 @@ public class Mole {
     private double preferredDirectionY; // Небольшие вертикальные отклонения
 
     private int hunger = 0;
-    private static final int MAX_HUNGER = 10000;
+    private static final int MAX_HUNGER = 1500;
     private static final int HUNGER_PER_FRAME = 1;
     private static final int FOOD_VALUE = 100;
     private int gridX, gridY;

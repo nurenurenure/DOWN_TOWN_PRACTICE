@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Кроты не спавнятся в замерзших слоях. Количество слоев вынесено в отдельную константу">
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлен ползунок для регулирования скорости симуляции пользователем">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Worm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751269309397</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Добавлен ползунок для регулирования скорости симуляции пользователем">
+      <option name="closed" value="true" />
+      <created>1751270038797</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1751270038797</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -199,6 +209,7 @@
     <MESSAGE value="Добавлен выбор времени года: Весна или Зима. (зимой меньше водоемов)" />
     <MESSAGE value="Измнения: кроты не копают верхние замерзшие слои почвы." />
     <MESSAGE value="Кроты не спавнятся в замерзших слоях. Количество слоев вынесено в отдельную константу" />
-    <option name="LAST_COMMIT_MESSAGE" value="Кроты не спавнятся в замерзших слоях. Количество слоев вынесено в отдельную константу" />
+    <MESSAGE value="Добавлен ползунок для регулирования скорости симуляции пользователем" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен ползунок для регулирования скорости симуляции пользователем" />
   </component>
 </project>

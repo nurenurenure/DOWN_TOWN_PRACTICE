@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
     private static final int WIDTH = 80;
     private static final int HEIGHT = 60;
-    private static final int MOLES_COUNT = 34;
+    private static final int MOLES_COUNT = 3;
 
     private static final int SPRING_WATER_COUNT = 20;
     private static final int WINTER_WATER_COUNT = 10;
