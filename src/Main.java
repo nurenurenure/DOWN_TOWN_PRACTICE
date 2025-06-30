@@ -40,15 +40,27 @@ public class Main extends Application {
         stage.show();
     }
 
-    private void startSimulation(Stage stage, String season) {
-        int waterCount = season.equals("spring") ? SPRING_WATER_COUNT : WINTER_WATER_COUNT;
+    private void startSimulation(Stage stage, String seasonName) {
+        Season season = switch (seasonName) {
+            case "spring" -> Season.SPRING;
+            case "winter" -> Season.WINTER;
+            case "summer" -> Season.SUMMER;
+            case "autumn" -> Season.AUTUMN;
+            default -> Season.SPRING;
+        };
+
+        int waterCount = switch (season) {
+            case SPRING -> SPRING_WATER_COUNT;
+            case WINTER -> WINTER_WATER_COUNT;
+            default -> 12;
+        };
 
         world = new World(WIDTH, HEIGHT, MOLES_COUNT,
-                waterCount, MIN_WATER_SIZE, MAX_WATER_SIZE);
+                waterCount, MIN_WATER_SIZE, MAX_WATER_SIZE, season);
 
         Scene scene = new Scene(world, WIDTH * World.CELL_SIZE,
                 HEIGHT * World.CELL_SIZE);
-        stage.setTitle("Подземная жизнь: " + (season.equals("spring") ? "Весна" : "Зима"));
+        stage.setTitle("Подземная жизнь: " + season);
         stage.setScene(scene);
         stage.show();
 
@@ -63,12 +75,12 @@ public class Main extends Application {
                 }
                 double deltaTime = (now - lastTime) / 1_000_000_000.0;
                 lastTime = now;
-
                 world.update(deltaTime);
             }
         };
         timer.start();
     }
+
 
     public static void main(String[] args) {
         launch(args);

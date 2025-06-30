@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
+
+
 public class World extends Pane {
     public static final int CELL_SIZE = 10;
     public final int width;
@@ -30,9 +32,11 @@ public class World extends Pane {
 
     private final List<Root> roots = new ArrayList<>();
 
+    private Season season;
 
     public World(int width, int height, int moleCount,
-                 int waterCount, int minWaterSize, int maxWaterSize) {
+                 int waterCount, int minWaterSize, int maxWaterSize, Season season) {
+        this.season = season;
         this.width = width;
         this.height = height;
 
@@ -73,6 +77,12 @@ public class World extends Pane {
         drawBackground();
         drawGrid();
     }
+
+
+    public Season getSeason() {
+        return season;
+    }
+
 
     private void generateWater(int waterCount, int minSize, int maxSize) {
         for (int i = 0; i < waterCount; i++) {
@@ -274,6 +284,18 @@ public class World extends Pane {
                     );
                 }
             }
+        }
+
+        if (season == Season.WINTER) {
+            gc.setFill(Color.rgb(180, 220, 255, 0.3)); // голубоватый туман
+
+            int frozenLayerHeight = 5; // верхние 5 слоёв
+            gc.fillRect(
+                    0,
+                    0,
+                    width * CELL_SIZE,
+                    frozenLayerHeight * CELL_SIZE
+            );
         }
     }
 

@@ -105,11 +105,17 @@ public class Mole {
                 newTargetY = gridY + (int)Math.signum(preferredDirectionY);
             }
 
-            // ❗ Проверка на воду
             if (!world.isWater(newTargetX, newTargetY)) {
+                // ❄️ Ограничение для зимы: не копать в верхние слои
+                if (world.getSeason() == Season.WINTER && newTargetY < 5) {
+                    // Пропускаем эту цель — остаёмся на месте или попробуем позже
+                    return;
+                }
+
                 targetX = newTargetX;
                 targetY = newTargetY;
-            } else {
+            }
+            else {
                 // Поворачиваем в случайном другом направлении
                 int[][] dirs = {
                         {1, 0}, {-1, 0}, {0, 1}, {0, -1}
