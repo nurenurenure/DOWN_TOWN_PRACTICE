@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="черви питаются корнями">
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="кроты размножаются">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Worm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751270625880</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="кроты размножаются">
+      <option name="closed" value="true" />
+      <created>1751271747209</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1751271747209</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -218,6 +226,7 @@
     <MESSAGE value="Кроты не спавнятся в замерзших слоях. Количество слоев вынесено в отдельную константу" />
     <MESSAGE value="Добавлен ползунок для регулирования скорости симуляции пользователем" />
     <MESSAGE value="черви питаются корнями" />
-    <option name="LAST_COMMIT_MESSAGE" value="черви питаются корнями" />
+    <MESSAGE value="кроты размножаются" />
+    <option name="LAST_COMMIT_MESSAGE" value="кроты размножаются" />
   </component>
 </project>

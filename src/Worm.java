@@ -4,7 +4,7 @@ import javafx.scene.shape.Circle;
 public class Worm {
     public static final int REPRODUCTION_TIME = 200;
     public static final int MAX_AGE = 500;
-    public static final double REPRODUCTION_PROBABILITY = 0.05;
+    public static final double REPRODUCTION_PROBABILITY = 0.3;
 
     private static final int MAX_HUNGER = 300;
     private static final int HUNGER_PER_TICK = 1;
@@ -45,7 +45,7 @@ public class Worm {
         }
 
         // Случайное движение
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.01) {
             moveRandomly(world);
         }
 

@@ -75,7 +75,7 @@ public class World extends Pane {
         // Генерируем червей около воды
         generateInitialWorms(waterCount * 2);
 
-        generateRootsNearWater();
+        generateRoots();
 
         gasChambers = new boolean[width][height];
         generateGasChambers();
@@ -129,19 +129,38 @@ public class World extends Pane {
         }
     }
 
-    private void generateRootsNearWater() {
+    private void generateRoots() {
         for (int x = 0; x < width; x++) {
-            for (int y = 0; y < Math.min(10, height); y++) {  // Верхние 10 слоёв
-                if (!isWater(x, y) && isNearWater(x, y) && !hasRootAt(x, y)) {
-                    if (random.nextDouble() < 0.05) {  // 5% шанс на клетку
-                        Root root = new Root(x, y);
-                        roots.add(root);
-                        getChildren().add(root.getVisual());
-                    }
+            if (isNearWater(x, 0) && !hasRootAt(x, 0)) {
+                if (random.nextDouble() < 0.4) { // было 0.05 — увеличили до 40%
+                    Root root = new Root(x, 0);
+                    roots.add(root);
+                    getChildren().add(root.getVisual());
                 }
             }
         }
     }
+    private void growRootsDownward() {
+        List<Root> newRoots = new ArrayList<>();
+        for (Root root : roots) {
+            if (!root.isAlive()) continue;
+
+            int belowY = root.getY() + 1;
+            int x = root.getX();
+
+            if (belowY < height && !hasRootAt(x, belowY) && !isWater(x, belowY)) {
+                if (random.nextDouble() < 0.2) { // шанс роста вниз — 20%
+                    Root newRoot = new Root(x, belowY);
+                    newRoots.add(newRoot);
+                    getChildren().add(newRoot.getVisual());
+                }
+            }
+        }
+        roots.addAll(newRoots);
+    }
+
+
+
 
     public boolean hasRootAt(int x, int y) {
         for (Root root : roots) {
@@ -180,6 +199,7 @@ public class World extends Pane {
         // Обновляем туннели
         updateTunnels();
 
+        growRootsDownward();
 
         // Очищаем и перерисовываем
         GraphicsContext gc = tunnelsCanvas.getGraphicsContext2D();
@@ -187,9 +207,11 @@ public class World extends Pane {
 
         // Рисуем туннели
         drawAllTunnels();
+
+
     }
+
     public void updateWorms() {
-        // Создаем копию списка для безопасной итерации
         List<Worm> wormsToUpdate = new ArrayList<>(worms);
 
         for (Worm worm : wormsToUpdate) {
