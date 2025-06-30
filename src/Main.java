@@ -16,6 +16,8 @@ public class Main extends Application {
     private static final int MIN_WATER_SIZE = 3;
     private static final int MAX_WATER_SIZE = 8;
 
+    public static final int FROZEN_TOP_LAYERS = 20;
+
     private World world;
     private AnimationTimer timer;
 

@@ -54,11 +54,17 @@ public class World extends Pane {
         // Создаем кротов
         this.moles = new Mole[moleCount];  // Массив изначально заполнен null
         for (int i = 0; i < moles.length; i++) {
-            moles[i] = new Mole(  // Создаем новых кротов
-                    random.nextInt(width),
-                    random.nextInt(height),
-                    this
-            );
+            int x = random.nextInt(width);
+            int y;
+
+            if (season == Season.WINTER) {
+                // Не спавнить кротов в верхних замороженных слоях зимой
+                y = random.nextInt(height - Main.FROZEN_TOP_LAYERS) + Main.FROZEN_TOP_LAYERS;
+            } else {
+                y = random.nextInt(height);
+            }
+
+            moles[i] = new Mole(x, y, this);
             this.getChildren().add(moles[i].getVisual());
         }
 
@@ -288,13 +294,11 @@ public class World extends Pane {
 
         if (season == Season.WINTER) {
             gc.setFill(Color.rgb(180, 220, 255, 0.3)); // голубоватый туман
-
-            int frozenLayerHeight = 5; // верхние 5 слоёв
             gc.fillRect(
                     0,
                     0,
                     width * CELL_SIZE,
-                    frozenLayerHeight * CELL_SIZE
+                    Main.FROZEN_TOP_LAYERS * CELL_SIZE
             );
         }
     }

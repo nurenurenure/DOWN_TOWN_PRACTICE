@@ -107,7 +107,7 @@ public class Mole {
 
             if (!world.isWater(newTargetX, newTargetY)) {
                 // ❄️ Ограничение для зимы: не копать в верхние слои
-                if (world.getSeason() == Season.WINTER && newTargetY < 5) {
+                if (world.getSeason() == Season.WINTER && newTargetY < Main.FROZEN_TOP_LAYERS) {
                     // Пропускаем эту цель — остаёмся на месте или попробуем позже
                     return;
                 }

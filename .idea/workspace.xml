@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлен выбор времени года: Весна или Зима. (зимой меньше водоемов)">
-      <change afterPath="$PROJECT_DIR$/src/Season.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Измнения: кроты не копают верхние замерзшие слои почвы.">
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
@@ -169,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751267366372</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Измнения: кроты не копают верхние замерзшие слои почвы.">
+      <option name="closed" value="true" />
+      <created>1751268642957</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1751268642957</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -184,6 +190,7 @@
     <MESSAGE value="Добавлен новый объект - Газовая камера" />
     <MESSAGE value="Добавлена визуализация газовых камер" />
     <MESSAGE value="Добавлен выбор времени года: Весна или Зима. (зимой меньше водоемов)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлен выбор времени года: Весна или Зима. (зимой меньше водоемов)" />
+    <MESSAGE value="Измнения: кроты не копают верхние замерзшие слои почвы." />
+    <option name="LAST_COMMIT_MESSAGE" value="Измнения: кроты не копают верхние замерзшие слои почвы." />
   </component>
 </project>
