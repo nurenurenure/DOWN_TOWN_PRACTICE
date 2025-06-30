@@ -145,7 +145,7 @@ public class World extends Pane {
     private void generateRoots() {
         for (int x = 0; x < width; x++) {
             if (isNearWater(x, 0) && !hasRootAt(x, 0)) {
-                if (random.nextDouble() < 0.4) { // было 0.05 — увеличили до 40%
+                if (random.nextDouble() < 1) { // было 0.05 — увеличили до 40%
                     Root root = new Root(x, 0);
                     roots.add(root);
                     getChildren().add(root.getVisual());
