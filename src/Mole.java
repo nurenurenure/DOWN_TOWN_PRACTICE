@@ -85,6 +85,10 @@ public class Mole {
                 newTargetY = gridY + (int)Math.signum(preferredDirectionY);
             }
 
+            // Проверяем границы мира и корректируем, если вышли за пределы
+            newTargetX = Math.max(0, Math.min(world.width - 1, newTargetX));
+            newTargetY = Math.max(0, Math.min(world.height - 1, newTargetY));
+
             // Случайные изгибы
             if (Math.random() < 0.1) {
                 preferredDirectionX *= (Math.random() < 0.8) ? 1 : -1;
@@ -96,6 +100,7 @@ public class Mole {
             if (world.hasTunnelAt(newTargetX, newTargetY) && Math.random() < 0.8) {
                 preferredDirectionX *= -1;
                 newTargetX = gridX + (int)Math.signum(preferredDirectionX);
+                newTargetX = Math.max(0, Math.min(world.width - 1, newTargetX));
             }
 
             // Притяжение к воде
@@ -103,6 +108,9 @@ public class Mole {
                 adjustDirectionToWater(world);
                 newTargetX = gridX + (int)Math.signum(preferredDirectionX);
                 newTargetY = gridY + (int)Math.signum(preferredDirectionY);
+
+                newTargetX = Math.max(0, Math.min(world.width - 1, newTargetX));
+                newTargetY = Math.max(0, Math.min(world.height - 1, newTargetY));
             }
 
             if (!world.isWater(newTargetX, newTargetY)) {
@@ -114,8 +122,7 @@ public class Mole {
 
                 targetX = newTargetX;
                 targetY = newTargetY;
-            }
-            else {
+            } else {
                 // Поворачиваем в случайном другом направлении
                 int[][] dirs = {
                         {1, 0}, {-1, 0}, {0, 1}, {0, -1}
@@ -123,7 +130,7 @@ public class Mole {
                 for (int[] dir : dirs) {
                     int tx = gridX + dir[0];
                     int ty = gridY + dir[1];
-                    if (!world.isWater(tx, ty)) {
+                    if (tx >= 0 && tx < world.width && ty >= 0 && ty < world.height && !world.isWater(tx, ty)) {
                         targetX = tx;
                         targetY = ty;
                         break;
@@ -132,6 +139,7 @@ public class Mole {
             }
         }
     }
+
 
 
     private void updatePosition(double deltaTime) {

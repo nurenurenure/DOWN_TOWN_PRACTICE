@@ -4,7 +4,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.BorderPane;
 public class Main extends Application {
     private static final int WIDTH = 80;
     private static final int HEIGHT = 60;
@@ -20,6 +23,8 @@ public class Main extends Application {
 
     private World world;
     private AnimationTimer timer;
+    private double speedMultiplier = 1.0; // множитель скорости симуляции
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -60,9 +65,32 @@ public class Main extends Application {
         world = new World(WIDTH, HEIGHT, MOLES_COUNT,
                 waterCount, MIN_WATER_SIZE, MAX_WATER_SIZE, season);
 
-        Scene scene = new Scene(world, WIDTH * World.CELL_SIZE,
-                HEIGHT * World.CELL_SIZE);
-        stage.setTitle("Подземная жизнь: " + season);
+        BorderPane root = new BorderPane();
+        root.setCenter(world);
+
+        // Слайдер скорости от 0.1 до 3.0, шаг 0.1
+        Slider speedSlider = new Slider(0.1, 3.0, 1.0);
+        speedSlider.setShowTickLabels(true);
+        speedSlider.setShowTickMarks(true);
+        speedSlider.setMajorTickUnit(0.5);
+        speedSlider.setMinorTickCount(4);
+        speedSlider.setBlockIncrement(0.1);
+
+        Label speedLabel = new Label("Скорость: 1.0x");
+
+        speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            speedMultiplier = newVal.doubleValue();
+            speedLabel.setText(String.format("Скорость: %.1fx", speedMultiplier));
+        });
+
+        HBox controls = new HBox(10, speedLabel, speedSlider);
+        controls.setStyle("-fx-padding: 10; -fx-alignment: center;");
+
+        root.setBottom(controls);
+
+        Scene scene = new Scene(root, WIDTH * World.CELL_SIZE,
+                HEIGHT * World.CELL_SIZE + 50); // учесть высоту панели управления
+        stage.setTitle("Подземная жизнь: " + seasonName);
         stage.setScene(scene);
         stage.show();
 
@@ -77,7 +105,7 @@ public class Main extends Application {
                 }
                 double deltaTime = (now - lastTime) / 1_000_000_000.0;
                 lastTime = now;
-                world.update(deltaTime);
+                world.update(deltaTime * speedMultiplier);
             }
         };
         timer.start();
