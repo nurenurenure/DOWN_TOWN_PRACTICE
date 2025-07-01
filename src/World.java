@@ -263,6 +263,22 @@ public class World extends Pane {
         gc.setFill(Color.rgb(60, 30, 10));
         gc.fillRect(0, 0, width * CELL_SIZE, height * CELL_SIZE);
 
+
+        // Затем рисуем затемненные области вокруг воды
+        gc.setFill(Color.rgb(50, 25, 8)); // Более темный оттенок земли
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (isNearWater(x, y) && !isWater(x, y)) {
+                    gc.fillRect(
+                            x * CELL_SIZE + 1,
+                            y * CELL_SIZE + 1,
+                            CELL_SIZE - 2,
+                            CELL_SIZE - 2
+                    );
+                }
+            }
+        }
+
         // Рисуем водоёмы
         gc.setFill(Color.rgb(30, 144, 255, 0.7));
         for (int x = 0; x < width; x++) {
