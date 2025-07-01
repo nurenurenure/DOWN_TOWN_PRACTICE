@@ -4,7 +4,7 @@ import javafx.scene.shape.Circle;
 public class Worm extends Animal {
     public static final int REPRODUCTION_TIME = 200;
     public static final int MAX_AGE = 2000;
-    public static final double REPRODUCTION_PROBABILITY = 0.3;
+    public static final double REPRODUCTION_PROBABILITY = 0.5;
     private static final int MAX_HUNGER = 300;
     private static final int HUNGER_PER_TICK = 1;
     private static final int ROOT_FOOD_VALUE = 100;

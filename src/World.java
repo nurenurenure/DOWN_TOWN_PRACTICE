@@ -31,7 +31,6 @@ public class World extends Pane {
     private double rootGrowthTimer = 0;
     private final double ROOT_GROWTH_INTERVAL = 0.5; // корни растут раз в 0.5 секунды
     private final int MAX_ROOT_DEPTH = 12;
-    private final List<DungBall> dungBalls = new ArrayList<>();
     private final boolean[][] dungMap;
 
 
@@ -55,8 +54,6 @@ public class World extends Pane {
         this.emptyMap = new boolean[width][height];
         this.dungMap = new boolean[width][height]; // Инициализируем здесь
 
-        // Генерация навоза
-        generateDung(dungCount, 1, 3);
 
         // Создаем слои отрисовки
         this.backgroundCanvas = new Canvas(width * CELL_SIZE, height * CELL_SIZE);
@@ -280,16 +277,6 @@ public class World extends Pane {
                 }
             }
         }
-        // Рисуем навоз
-        gc.setFill(Color.rgb(101, 67, 33)); // Коричневый цвет навоза
-        for (DungBall ball : dungBalls) {
-            gc.fillOval(
-                    ball.getX() * CELL_SIZE + 2,
-                    ball.getY() * CELL_SIZE + 2,
-                    CELL_SIZE - 4,
-                    CELL_SIZE - 4
-            );
-        }
 
         // Рисуем пустоты
         gc.setFill(Color.BLACK);
@@ -499,35 +486,6 @@ public class World extends Pane {
         return false;
     }
 
-    public void removeDungAt(int x, int y) {
-        if (isValidPosition(x, y) && dungMap[x][y]) {
-            dungMap[x][y] = false;
-            // Удаляем все шары в этой позиции (на случай, если их несколько)
-            dungBalls.removeIf(ball -> ball.getX() == x && ball.getY() == y);
-        }
-    }
-    private void generateDung(int count, int minSize, int maxSize) {
-        for (int i = 0; i < count; i++) {
-            int centerX = random.nextInt(width);
-            int centerY = random.nextInt(height - 5) + 5; // Не генерируем навоз у поверхности
 
-            int size = minSize + random.nextInt(maxSize - minSize + 1);
-            createDungCluster(centerX, centerY, size);
-        }
-    }
-
-    private void createDungCluster(int centerX, int centerY, int size) {
-        for (int x = Math.max(0, centerX - size); x < Math.min(width, centerX + size); x++) {
-            for (int y = Math.max(0, centerY - size); y < Math.min(height, centerY + size); y++) {
-                if (!isWater(x, y) && random.nextDouble() < 0.7) { // 70% chance to place dung in cluster
-                    dungMap[x][y] = true;
-                    dungBalls.add(new DungBall(x, y));
-                }
-            }
-        }
-    }
-    public boolean hasDungAt(int x, int y) {
-        return isValidPosition(x, y) && dungMap[x][y];
-    }
 
 }

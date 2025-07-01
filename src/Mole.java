@@ -9,7 +9,7 @@ public class Mole extends Animal {
     private static final int MAX_HUNGER = 1500;
     private static final int HUNGER_PER_FRAME = 1;
     private static final int FOOD_VALUE = 100;
-    public static final int TUNNEL_DURATION = 100;
+    public static final int TUNNEL_DURATION = 1000;
     private static final double MOVE_DELAY = 0.05;
 
     private final Random random = new Random();
