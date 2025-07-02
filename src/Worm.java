@@ -8,6 +8,8 @@ public class Worm extends Animal {
     private static final int MAX_HUNGER = 300;
     private static final int HUNGER_PER_TICK = 1;
     private static final int ROOT_FOOD_VALUE = 100;
+    private static final int MUSHROOM_FOOD_VALUE = 100;
+
 
     private int age = 0;
     private Circle visual;
@@ -54,7 +56,6 @@ public class Worm extends Animal {
         hunger = Math.max(0, hunger - ROOT_FOOD_VALUE);
         world.removeRoot(root);
     }
-
 
     private void reproduce(World world) {
         world.addWormNearWater(x, y);

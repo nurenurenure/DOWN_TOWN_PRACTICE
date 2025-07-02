@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
-
-
 public class World extends Pane {
     public static final int CELL_SIZE = 10;
     public final int width;
@@ -20,6 +18,8 @@ public class World extends Pane {
 
     private final List<Mole> moles = new ArrayList<>();
     private final List<Worm> worms = new ArrayList<>();
+    private final List<Mushroom> mushrooms = new ArrayList<>();
+
 
     public final int[][] tunnelMap;
     public final boolean[][] waterMap;
@@ -89,6 +89,8 @@ public class World extends Pane {
 
         gasChambers = new boolean[width][height];
         generateGasChambers();
+        generateInitialMushrooms(waterCount); // Генерируем грибы около водоемов
+
 
         // Инициализируем графику
         drawBackground();
@@ -213,6 +215,9 @@ public class World extends Pane {
         // Обновляем туннели
         updateTunnels();
 
+        // Обновляем грибы
+        updateMushrooms(deltaTime);
+
         // Таймер роста корней
         rootGrowthTimer += deltaTime;
         if (rootGrowthTimer >= ROOT_GROWTH_INTERVAL) {
@@ -227,7 +232,6 @@ public class World extends Pane {
 
         // Рисуем туннели
         drawAllTunnels();
-
 
     }
 
@@ -503,5 +507,59 @@ public class World extends Pane {
     }
 
 
+    private void generateInitialMushrooms(int waterCount) {
+        for (int i = 0; i < waterCount * 3; i++) {
+            int x, y;
+            int attempts = 0;
+            do {
+                x = (int)(Math.random() * width);
+                y = (int)(Math.random() * height);
+                attempts++;
+            } while ((!isNearWater(x, y) || hasMushroomAt(x, y)) && attempts < 100);
 
+            if (attempts < 100) {
+                mushrooms.add(new Mushroom(x, y));
+                getChildren().add(mushrooms.get(mushrooms.size()-1).getVisual());
+            }
+        }
+    }
+
+    public boolean hasMushroomAt(int x, int y) {
+        for (Mushroom m : mushrooms) {
+            if (m.getX() == x && m.getY() == y && m.isAlive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addMushroom(Mushroom mushroom) {
+        mushrooms.add(mushroom);
+        getChildren().add(mushroom.getVisual());
+    }
+
+    public void removeMushroom(Mushroom mushroom) {
+        mushrooms.remove(mushroom);
+        getChildren().remove(mushroom.getVisual());
+    }
+
+    public Mushroom getMushroomAt(int x, int y) {
+        for (Mushroom m : mushrooms) {
+            if (m.getX() == x && m.getY() == y && m.isAlive()) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    private void updateMushrooms(double deltaTime) {
+        List<Mushroom> mushroomsToUpdate = new ArrayList<>(mushrooms);
+        for (Mushroom m : mushroomsToUpdate) {
+            if (m.isAlive()) {
+                m.trySpread(this);
+            } else {
+                removeMushroom(m);
+            }
+        }
+    }
 }
