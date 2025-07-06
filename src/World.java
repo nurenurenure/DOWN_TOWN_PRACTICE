@@ -64,18 +64,23 @@ public class World extends Pane {
 
         // Создаем кротов
         for (int i = 0; i < moleCount; i++) {
-            int x = random.nextInt(width);
-            int y;
+            int x, y;
+            int attempts = 0;
+            do {
+                x = random.nextInt(width);
+                if (season == Season.WINTER) {
+                    y = random.nextInt(height - Main.FROZEN_TOP_LAYERS) + Main.FROZEN_TOP_LAYERS;
+                } else {
+                    y = random.nextInt(height);
+                }
+                attempts++;
+            } while ((isWater(x, y) || hasMoleAt(x, y)) && attempts < 100);
 
-            if (season == Season.WINTER) {
-                y = random.nextInt(height - Main.FROZEN_TOP_LAYERS) + Main.FROZEN_TOP_LAYERS;
-            } else {
-                y = random.nextInt(height);
+            if (attempts < 100) {
+                Mole mole = new Mole(x, y, this);
+                moles.add(mole);
+                getChildren().add(mole.getVisual());
             }
-
-            Mole mole = new Mole(x, y, this);
-            moles.add(mole);  // теперь список, не массив
-            getChildren().add(mole.getVisual());
         }
 
 
@@ -506,16 +511,15 @@ public class World extends Pane {
         return false;
     }
 
-
     private void generateInitialMushrooms(int waterCount) {
         for (int i = 0; i < waterCount * 3; i++) {
             int x, y;
             int attempts = 0;
             do {
-                x = (int)(Math.random() * width);
-                y = (int)(Math.random() * height);
+                x = random.nextInt(width);
+                y = random.nextInt(height);
                 attempts++;
-            } while ((!isNearWater(x, y) || hasMushroomAt(x, y)) && attempts < 100);
+            } while ((isWater(x, y) || hasMushroomAt(x, y) || !isNearWater(x, y)) && attempts < 100);
 
             if (attempts < 100) {
                 mushrooms.add(new Mushroom(x, y));
@@ -538,9 +542,16 @@ public class World extends Pane {
         getChildren().add(mushroom.getVisual());
     }
 
-    public void removeMushroom(Mushroom mushroom) {
-        mushrooms.remove(mushroom);
-        getChildren().remove(mushroom.getVisual());
+
+    private void updateMushrooms(double deltaTime) {
+        List<Mushroom> mushroomsToUpdate = new ArrayList<>(mushrooms);
+        for (Mushroom m : mushroomsToUpdate) {
+            if (m.isAlive()) {
+                m.trySpread(this);
+            } else {
+                removeMushroom(m);
+            }
+        }
     }
 
     public Mushroom getMushroomAt(int x, int y) {
@@ -552,14 +563,8 @@ public class World extends Pane {
         return null;
     }
 
-    private void updateMushrooms(double deltaTime) {
-        List<Mushroom> mushroomsToUpdate = new ArrayList<>(mushrooms);
-        for (Mushroom m : mushroomsToUpdate) {
-            if (m.isAlive()) {
-                m.trySpread(this);
-            } else {
-                removeMushroom(m);
-            }
-        }
+    public void removeMushroom(Mushroom mushroom) {
+        mushrooms.remove(mushroom);
+        getChildren().remove(mushroom.getVisual());
     }
 }

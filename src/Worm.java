@@ -7,8 +7,6 @@ public class Worm extends Animal {
     public static final double REPRODUCTION_PROBABILITY = 0.5;
     private static final int MAX_HUNGER = 300;
     private static final int HUNGER_PER_TICK = 1;
-    private static final int ROOT_FOOD_VALUE = 100;
-    private static final int MUSHROOM_FOOD_VALUE = 100;
 
 
     private int age = 0;
@@ -37,10 +35,7 @@ public class Worm extends Animal {
             return;
         }
 
-        Root root = world.getRootAt(x, y);
-        if (root != null && root.isAlive()) {
-            eatRoot(root, world);
-        }
+        checkForFood(world); // Используем общий метод проверки пищи
 
         if (Math.random() < 0.01) moveRandomly(world);
         updateVisualPosition();
@@ -49,12 +44,6 @@ public class Worm extends Animal {
                 Math.random() < REPRODUCTION_PROBABILITY) {
             reproduce(world);
         }
-    }
-
-    private void eatRoot(Root root, World world) {
-        root.consume();
-        hunger = Math.max(0, hunger - ROOT_FOOD_VALUE);
-        world.removeRoot(root);
     }
 
     private void reproduce(World world) {

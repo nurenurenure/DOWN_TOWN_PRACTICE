@@ -35,7 +35,7 @@ public class Mushroom {
 
     // Шанс распространения гриба на соседние клетки
     public void trySpread(World world) {
-        if (Math.random() < 0.001) { // 0.5% шанс распространения
+        if (Math.random() < 0.001) { // 0.1% шанс распространения
             int dx = (int)(Math.random() * 3) - 1; // -1, 0 или 1
             int dy = (int)(Math.random() * 3) - 1;
 

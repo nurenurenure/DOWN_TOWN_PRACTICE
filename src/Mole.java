@@ -173,23 +173,14 @@ public class Mole extends Animal {
         }
     }
 
+
+    @Override
+    protected boolean canEatWorms() {
+        return true; // Кроты могут есть червей
+    }
+
     private void checkForFood() {
-        Worm worm = world.getWormAt(x, y);
-        if (worm != null && worm.isAlive()) eat(worm);
-
-        Root root = world.getRootAt(x, y);
-        if (root != null) eat(root);
-    }
-
-    private void eat(Worm worm) {
-        worm.die();
-        hunger = Math.max(0, hunger - FOOD_VALUE);
-        world.removeWorm(worm);
-    }
-
-    private void eat(Root root) {
-        hunger = Math.max(0, hunger - 50);
-        world.removeRoot(root);
+        checkForFood(world); // Используем общий метод из Animal
     }
 
     @Override

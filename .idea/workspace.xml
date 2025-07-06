@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Почва рядом с водоемами визуально темнее">
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Черви и кроты едят грибы. Изменена архитектура классов Animal Mole Worm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mushroom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mushroom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worm.java" afterDir="false" />
     </list>
@@ -36,6 +39,9 @@
     &quot;accountId&quot;: &quot;b0d73e69-0047-4bc2-9794-0104c8d2df13&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -53,7 +59,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/javafx-sdk-24/lib&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Анна/Desktop/monkey_casino&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Анна/Desktop/untitled1/src/Main.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
@@ -255,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751352562945</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Добавлен класс Гриб, появляются в мокрой почве у водоемов. Размножаются с нек. шансом">
+      <option name="closed" value="true" />
+      <created>1751418332375</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1751418332375</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -281,6 +295,8 @@
     <MESSAGE value="Добавлена функция поставить на паузу" />
     <MESSAGE value="Убран контент с кучами" />
     <MESSAGE value="Почва рядом с водоемами визуально темнее" />
-    <option name="LAST_COMMIT_MESSAGE" value="Почва рядом с водоемами визуально темнее" />
+    <MESSAGE value="Добавлен класс Гриб, появляются в мокрой почве у водоемов. Размножаются с нек. шансом" />
+    <MESSAGE value="Черви и кроты едят грибы. Изменена архитектура классов Animal Mole Worm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Черви и кроты едят грибы. Изменена архитектура классов Animal Mole Worm" />
   </component>
 </project>
