@@ -168,10 +168,14 @@ public class World extends Pane {
         }
     }
     private void growRootsDownward() {
-        // Зимой корни не растут
-        if (season == Season.WINTER) return;
-
         List<Root> newRoots = new ArrayList<>();
+        double growthChance = 0.2; // Стандартный шанс
+
+        if (season == Season.SUMMER) {
+            growthChance = 0.5; // Летом корни растут активнее
+        } else if (season == Season.WINTER) {
+            return; // Зимой не растут
+        }
         for (Root root : roots) {
             if (!root.isAlive()) continue;
 
@@ -556,11 +560,18 @@ public class World extends Pane {
 
     private void updateMushrooms(double deltaTime) {
         List<Mushroom> mushroomsToUpdate = new ArrayList<>(mushrooms);
+        double spreadChance = 0.005; // Стандартный шанс
         for (Mushroom m : mushroomsToUpdate) {
             if (m.isAlive()) {
                 // Зимой грибы не распространяются
                 if (season != Season.WINTER) {
                     m.trySpread(this);
+                }
+                else if (season == Season.SUMMER) {
+                    spreadChance = 0.002; // Летом грибы размножаются медленнее
+                }
+                else if (season == Season.AUTUMN) {
+                    spreadChance = 0.01; // Осенью быстрее
                 }
             } else {
                 removeMushroom(m);
