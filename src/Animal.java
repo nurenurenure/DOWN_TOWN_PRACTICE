@@ -36,6 +36,12 @@ public abstract class Animal {
         int[] dir = directions[(int)(Math.random() * directions.length)];
         int newX = x + dir[0];
         int newY = y + dir[1];
+
+        // Зимой не даем двигаться в замерзшие слои
+        if (world.getSeason() == Season.WINTER && newY < Main.FROZEN_TOP_LAYERS) {
+            return;
+        }
+
         if (world.isValidPosition(newX, newY) && !world.isWater(newX, newY)) {
             x = newX;
             y = newY;

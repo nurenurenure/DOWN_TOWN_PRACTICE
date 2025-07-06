@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Черви и кроты едят грибы. Изменена архитектура классов Animal Mole Worm">
-      <change beforePath="$PROJECT_DIR$/src/Mole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mole.java" afterDir="false" />
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Червы и кроты меньше размножаются зимой, грибы и корни зимой не растут">
+      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Worm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +273,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751840692974</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Червы и кроты меньше размножаются зимой, грибы и корни зимой не растут">
+      <option name="closed" value="true" />
+      <created>1751841370177</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1751841370177</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -302,6 +309,7 @@
     <MESSAGE value="Почва рядом с водоемами визуально темнее" />
     <MESSAGE value="Добавлен класс Гриб, появляются в мокрой почве у водоемов. Размножаются с нек. шансом" />
     <MESSAGE value="Черви и кроты едят грибы. Изменена архитектура классов Animal Mole Worm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Черви и кроты едят грибы. Изменена архитектура классов Animal Mole Worm" />
+    <MESSAGE value="Червы и кроты меньше размножаются зимой, грибы и корни зимой не растут" />
+    <option name="LAST_COMMIT_MESSAGE" value="Червы и кроты меньше размножаются зимой, грибы и корни зимой не растут" />
   </component>
 </project>

@@ -135,14 +135,24 @@ public class World extends Pane {
     private void generateInitialWorms(int wormCount) {
         for (int i = 0; i < wormCount; i++) {
             int x, y;
+            int attempts = 0;
             do {
                 x = random.nextInt(width);
                 y = random.nextInt(height);
-            } while (!isNearWater(x, y) || isWater(x, y) || hasWormAt(x, y));
 
-            Worm worm = new Worm(x, y);
-            worms.add(worm);
-            this.getChildren().add(worm.getVisual());
+                // Зимой проверяем, чтобы черви не спавнились в замерзших слоях
+                if (season == Season.WINTER && y < Main.FROZEN_TOP_LAYERS) {
+                    y = Main.FROZEN_TOP_LAYERS + random.nextInt(height - Main.FROZEN_TOP_LAYERS);
+                }
+
+                attempts++;
+            } while ((!isNearWater(x, y) || isWater(x, y) || hasWormAt(x, y)) && attempts < 100);
+
+            if (attempts < 100) {
+                Worm worm = new Worm(x, y);
+                worms.add(worm);
+                this.getChildren().add(worm.getVisual());
+            }
         }
     }
 
