@@ -335,7 +335,11 @@ public class World extends Pane {
         }
 
         // Рисуем газовые камеры
-        gc.setFill(Color.rgb(0, 255, 0, 0.25)); // Ядовито-зелёный полупрозрачный
+        if (season == Season.SUMMER) {
+            gc.setFill(Color.rgb(0, 255, 0, 0.85)); // Более яркие и заметные летом
+        } else {
+            gc.setFill(Color.rgb(0, 255, 0, 0.25));
+        }
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -489,6 +493,19 @@ public class World extends Pane {
     private void generateGasChambers() {
         Random random = new Random();
         int clusterCount = (width * height) / 500; // Примерно 1 газовая камера на 500 клеток
+
+        // Увеличиваем количество летом
+        if (season == Season.SUMMER) {
+            clusterCount = (width * height) / 300; // На 40% больше
+        }
+
+        // Дополнительно можно увеличить размер кластеров летом
+        int minClusterSize = 4;
+        int maxClusterSize = 8;
+
+        if (season == Season.SUMMER) {
+            maxClusterSize = 10; // Большие скопления газа
+        }
 
         for (int i = 0; i < clusterCount; i++) {
             int clusterSize = 4 + random.nextInt(5); // 4–8 клеток
