@@ -158,6 +158,9 @@ public class World extends Pane {
         }
     }
     private void growRootsDownward() {
+        // Зимой корни не растут
+        if (season == Season.WINTER) return;
+
         List<Root> newRoots = new ArrayList<>();
         for (Root root : roots) {
             if (!root.isAlive()) continue;
@@ -165,11 +168,10 @@ public class World extends Pane {
             int belowY = root.getY() + 1;
             int x = root.getX();
 
-            // Ограничим максимальную глубину
             if (belowY >= height || belowY > MAX_ROOT_DEPTH) continue;
 
             if (!hasRootAt(x, belowY) && !isWater(x, belowY)) {
-                if (random.nextDouble() < 0.1) { // шанс роста вниз 10%
+                if (random.nextDouble() < 0.1) {
                     Root newRoot = new Root(x, belowY);
                     newRoots.add(newRoot);
                     getChildren().add(newRoot.getVisual());
@@ -542,12 +544,14 @@ public class World extends Pane {
         getChildren().add(mushroom.getVisual());
     }
 
-
     private void updateMushrooms(double deltaTime) {
         List<Mushroom> mushroomsToUpdate = new ArrayList<>(mushrooms);
         for (Mushroom m : mushroomsToUpdate) {
             if (m.isAlive()) {
-                m.trySpread(this);
+                // Зимой грибы не распространяются
+                if (season != Season.WINTER) {
+                    m.trySpread(this);
+                }
             } else {
                 removeMushroom(m);
             }

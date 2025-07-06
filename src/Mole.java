@@ -71,6 +71,11 @@ public class Mole extends Animal {
     }
 
     private void reproduce() {
+        // Зимой шанс размножения значительно ниже
+        if (world.getSeason() == Season.WINTER && Math.random() > 0.2) {
+            return;
+        }
+
         int[][] directions = {{0,1},{1,0},{0,-1},{-1,0}};
         for (int[] dir : directions) {
             int newX = x + dir[0];

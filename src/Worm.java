@@ -39,9 +39,14 @@ public class Worm extends Animal {
 
         if (Math.random() < 0.01) moveRandomly(world);
         updateVisualPosition();
+        // Зимой шанс размножения значительно ниже
+        double reproductionProb = REPRODUCTION_PROBABILITY;
+        if (world.getSeason() == Season.WINTER) {
+            reproductionProb *= 0.2; // Уменьшаем шанс в 5 раз
+        }
 
         if (reproductionCounter >= REPRODUCTION_TIME &&
-                Math.random() < REPRODUCTION_PROBABILITY) {
+                Math.random() < reproductionProb) {
             reproduce(world);
         }
     }
