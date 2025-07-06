@@ -577,7 +577,8 @@ public class World extends Pane {
 
     private void updateMushrooms(double deltaTime) {
         List<Mushroom> mushroomsToUpdate = new ArrayList<>(mushrooms);
-        double spreadChance = 0.005; // Стандартный шанс
+        double spreadChance = 0.01; // Базовый шанс
+
         for (Mushroom m : mushroomsToUpdate) {
             if (m.isAlive()) {
                 // Зимой грибы не распространяются
@@ -588,7 +589,7 @@ public class World extends Pane {
                     spreadChance = 0.002; // Летом грибы размножаются медленнее
                 }
                 else if (season == Season.AUTUMN) {
-                    spreadChance = 0.01; // Осенью быстрее
+                    spreadChance = 0.04; // В 4 раза чаще
                 }
             } else {
                 removeMushroom(m);

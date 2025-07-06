@@ -36,13 +36,15 @@ public class Main extends Application {
     private void showSeasonSelection(Stage stage) {
         Button springBtn = new Button("Весна");
         Button summerBtn = new Button("Лето");
+        Button autumnBtn = new Button("Осень");
         Button winterBtn = new Button("Зима");
 
         springBtn.setOnAction(e -> startSimulation(stage, "spring"));
         summerBtn.setOnAction(e -> startSimulation(stage, "summer"));
+        autumnBtn.setOnAction(e -> startSimulation(stage, "autumn"));
         winterBtn.setOnAction(e -> startSimulation(stage, "winter"));
 
-        VBox root = new VBox(20, springBtn, summerBtn, winterBtn);  // Добавили кнопку
+        VBox root = new VBox(20, springBtn, summerBtn, autumnBtn, winterBtn);
         root.setStyle("-fx-padding: 40; -fx-alignment: center; -fx-background-color: linen;");
 
         Scene scene = new Scene(root, 300, 200);
