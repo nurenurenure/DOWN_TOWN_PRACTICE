@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Летом увеличено число газовых карманов. Газ более яркий по цвету">
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Осенью черви и грибы размножаются активнее">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Worm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -306,11 +306,18 @@
       <option name="project" value="LOCAL" />
       <updated>1751842586882</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Осенью черви и грибы размножаются активнее">
+      <option name="closed" value="true" />
+      <created>1751843120320</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1751843120320</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавлены черви(рядом с водоемами)" />
     <MESSAGE value="исправлен баг с обновлением червей" />
     <MESSAGE value="улучшена логика передвижения кротов" />
     <MESSAGE value="Кроты не копают сквозь водоемы" />
@@ -335,6 +342,7 @@
     <MESSAGE value="Черви не появляются и не двигаются в замерзише слоя почвы зимой" />
     <MESSAGE value="Сезон Лето. Изменения: корни растут активнее, грибы размножаются медленнее" />
     <MESSAGE value="Летом увеличено число газовых карманов. Газ более яркий по цвету" />
-    <option name="LAST_COMMIT_MESSAGE" value="Летом увеличено число газовых карманов. Газ более яркий по цвету" />
+    <MESSAGE value="Осенью черви и грибы размножаются активнее" />
+    <option name="LAST_COMMIT_MESSAGE" value="Осенью черви и грибы размножаются активнее" />
   </component>
 </project>

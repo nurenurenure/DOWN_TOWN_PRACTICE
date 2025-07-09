@@ -44,7 +44,7 @@ public class World extends Pane {
     private Season season;
 
     public World(int width, int height, int moleCount,
-                 int waterCount, int minWaterSize, int maxWaterSize,int dungCount, Season season) {
+                 int waterCount, int minWaterSize, int maxWaterSize, Season season) {
         this.season = season;
         this.width = width;
         this.height = height;
