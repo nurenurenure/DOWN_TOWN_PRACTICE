@@ -1,26 +1,26 @@
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 public class Mushroom {
     private int x;
     private int y;
     private boolean alive;
-    private final Circle visual;
+    private final ImageView visual;
 
     public Mushroom(int x, int y) {
         this.x = x;
         this.y = y;
         this.alive = true;
+        // Загружаем изображение гриба
+        Image mushroomImage = new Image(getClass().getResourceAsStream("/mushroom.png"));
+        this.visual = new ImageView(mushroomImage);
 
-        this.visual = new Circle(
-                x * World.CELL_SIZE + World.CELL_SIZE/2,
-                y * World.CELL_SIZE + World.CELL_SIZE/2,
-                World.CELL_SIZE/3,
-                Color.rgb(200, 50, 50) // Красноватый цвет гриба
-        );
+        // Настраиваем размер и позицию
+        this.visual.setFitWidth(World.CELL_SIZE * 0.8);
+        this.visual.setFitHeight(World.CELL_SIZE * 0.8);
+        this.visual.setX(x * World.CELL_SIZE + World.CELL_SIZE * 0.1);
+        this.visual.setY(y * World.CELL_SIZE + World.CELL_SIZE * 0.1);
     }
-
-    public Circle getVisual() {
+    public ImageView getVisual() {
         return visual;
     }
 

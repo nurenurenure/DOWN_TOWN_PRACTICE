@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Осенью черви и грибы размножаются активнее">
+    <list default="true" id="a7a33b09-2e45-44b2-b020-341beea8d801" name="Changes" comment="Добавлено меню настройки количества кротов и водоемов">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mushroom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mushroom.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,11 +313,18 @@
       <option name="project" value="LOCAL" />
       <updated>1751843120320</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Добавлено меню настройки количества кротов и водоемов">
+      <option name="closed" value="true" />
+      <created>1752035147999</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1752035147999</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="исправлен баг с обновлением червей" />
     <MESSAGE value="улучшена логика передвижения кротов" />
     <MESSAGE value="Кроты не копают сквозь водоемы" />
     <MESSAGE value="Добавлен новый объект - Корни" />
@@ -343,6 +349,7 @@
     <MESSAGE value="Сезон Лето. Изменения: корни растут активнее, грибы размножаются медленнее" />
     <MESSAGE value="Летом увеличено число газовых карманов. Газ более яркий по цвету" />
     <MESSAGE value="Осенью черви и грибы размножаются активнее" />
-    <option name="LAST_COMMIT_MESSAGE" value="Осенью черви и грибы размножаются активнее" />
+    <MESSAGE value="Добавлено меню настройки количества кротов и водоемов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено меню настройки количества кротов и водоемов" />
   </component>
 </project>
