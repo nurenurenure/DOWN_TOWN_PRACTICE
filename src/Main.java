@@ -19,7 +19,6 @@ public class Main extends Application {
     private static final int MAX_WATER = 30;
     private static final int MIN_WATER_SIZE = 3;
     private static final int MAX_WATER_SIZE = 8;
-    private static final int DUNG_COUNT = 5;
     public static final int FROZEN_TOP_LAYERS = 20;
 
     private World world;
